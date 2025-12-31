@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy New Year Mahnoor ❤️</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root { --light: #ffffff; }
+    * { margin:0; padding:0; box-sizing:border-box; }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #000;
+      color: var(--light);
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    /* ⏳ COUNTDOWN */
+    #countdown {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(4rem, 12vw, 7rem);
+      color: #ffffff;
+      background: #000;
+      z-index: 10000;
+      text-shadow:
+        0 0 15px rgba(255,255,255,0.8),
+        0 0 40px rgba(255,255,255,0.7),
+        0 0 80px rgba(255,255,255,0.5);
+      transition: opacity 0.6s ease;
+      animation: glowPulse 1.2s ease-in-out infinite alternate;
+    }
+
+    @keyframes glowPulse {
+      from {
+        text-shadow:
+          0 0 10px rgba(255,255,255,0.6),
+          0 0 30px rgba(255,255,255,0.6),
+          0 0 60px rgba(255,255,255,0.4);
+      }
+      to {
+        text-shadow:
+          0 0 20px rgba(255,255,255,1),
+          0 0 50px rgba(255,255,255,0.9),
+          0 0 100px rgba(255,255,255,0.8);
+      }
+    }
+
+    #countdown.hide {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    #page {
+      opacity: 0;
+      transition: opacity 1.2s ease;
+    }
+    #page.show { opacity: 1; }
+
+    canvas { position: fixed; inset: 0; z-index: 0; }
+
+    .center-title {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 8vw, 5.5rem);
+      color: #fff;
+      text-shadow:
+        0 0 20px rgba(255,255,255,0.6),
+        0 0 40px rgba(255,95,158,0.45),
+        0 0 80px rgba(114,9,183,0.35);
+      z-index: 1;
+      pointer-events: none;
+      animation: titleGlow 3s ease-in-out infinite alternate;
+      padding: 0 10px;
+    }
+
+    .center-title span {
+      display: block;
+      margin-top: 10px;
+      font-size: clamp(3.2rem, 9vw, 6.2rem);
+      color: #ffb3c7;
+    }
+
+    @keyframes titleGlow {
+      from { opacity: 0.85; }
+      to { opacity: 1; }
+    }
+
+    footer {
+      position: fixed;
+      bottom: 15px;
+      width: 100%;
+      text-align: center;
+      font-size: 14px;
+      opacity: 0.85;
+      z-index: 2;
+    }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,0.45);
+      backdrop-filter: blur(6px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.8s ease;
+      z-index: 5;
+      padding: 0 10px;
+    }
+
+    .modal.show { opacity: 1; pointer-events: all; }
+
+    .modal-card {
+      background: rgba(255,255,255,0.1);
+      border-radius: 24px;
+      padding: 30px 24px;
+      text-align: center;
+      max-width: 520px;
+      width: 90%;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+      animation: fadeUp 1s ease;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .modal-card h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 4vw, 2.2rem);
+      margin-bottom: 24px;
+      color: #fff;
+      line-height: 1.5;
+    }
+
+    .yes-btn {
+      padding: 16px 48px;
+      border-radius: 40px;
+      border: none;
+      font-size: 1.05rem;
+      cursor: pointer;
+      background: linear-gradient(135deg,#ffd6e8,#ffb3c7);
+      color: #1a1a1a;
+    }
+
+    #tapOverlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.8);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    #tapOverlay span {
+      color: white;
+      font-size: 20px;
+      border: 2px solid white;
+      padding: 12px 24px;
+      border-radius: 50px;
+    }
+  </style>
+</head>
+
+<body>
+
+<div id="countdown">3</div>
+
+<div id="page">
+
+  <div id="tapOverlay"><span>Tap to start ✨</span></div>
+  <canvas id="fireworks"></canvas>
+
+  <div class="center-title">
+    Happy New Year<br><span>Mahnoor</span>
+  </div>
+
+  <footer>Made with ❤️ just for Mahnoor</footer>
+
+  <audio id="bgMusic" src="audio/music.mp3" loop preload="auto"></audio>
+
+  <div id="questionModal" class="modal">
+    <div class="modal-card">
+      <h2>
+        Can we rewind for a second? I want to show you some of my favorite moments from this year, all the little reasons my heart chose you... Shall we? 🤧
+      </h2>
+      <button id="yesBtn" class="yes-btn">Yes ✨</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const countdown = document.getElementById('countdown');
+  const page = document.getElementById('page');
+  let count = 3;
+
+  // Countdown
+  const timer = setInterval(() => {
+    count--;
+    if (count > 0) {
+      countdown.textContent = count;
+    } else {
+      clearInterval(timer);
+      countdown.classList.add('hide');
+      page.classList.add('show');
+
+      // Show modal after 7 seconds
+      setTimeout(() => {
+        document.getElementById('questionModal').classList.add('show');
+      }, 7000);
+    }
+  }, 1000);
+
+  // Fireworks
+  const canvas = document.getElementById('fireworks');
+  const ctx = canvas.getContext('2d');
+  function resize(){ canvas.width=innerWidth; canvas.height=innerHeight; }
+  resize(); window.addEventListener('resize',resize);
+
+  const particles=[]; 
+  const colors=['#ffd6e8','#ffb3c7','#cdb4db','#bde0fe','#fff1a8'];
+
+  setInterval(()=>{
+    const x=canvas.width*(0.2+Math.random()*0.6);
+    const y=canvas.height*(0.15+Math.random()*0.35);
+    for(let i=0;i<120;i++){
+      particles.push({
+        x,y,
+        angle:Math.random()*Math.PI*2,
+        speed:Math.random()*3+1.5,
+        life:1,
+        color:colors[Math.floor(Math.random()*colors.length)]
+      });
+    }
+  },900);
+
+  function animate(){
+    ctx.fillStyle='rgba(0,0,0,0.2)';
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+    for(let i=particles.length-1;i>=0;i--){
+      const p=particles[i];
+      p.x+=Math.cos(p.angle)*p.speed;
+      p.y+=Math.sin(p.angle)*p.speed;
+      p.life-=0.012;
+      ctx.globalAlpha=p.life;
+      ctx.fillStyle=p.color;
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,1.6,0,Math.PI*2);
+      ctx.fill();
+      if(p.life<=0)particles.splice(i,1);
+    }
+    ctx.globalAlpha=1;
+    requestAnimationFrame(animate);
+  }
+  animate();
+
+  // Music play
+  const music=document.getElementById('bgMusic');
+  const tapOverlay=document.getElementById('tapOverlay');
+  tapOverlay.addEventListener('click',()=>{
+    music.volume=0.6;
+    music.play().finally(()=>tapOverlay.style.display='none');
+  },{once:true});
+
+  // Yes button
+  document.getElementById('yesBtn').onclick=()=>{
+    music.pause();
+    location.href="memories.html";
+  };
+</script>
+
+</body>
+</html>

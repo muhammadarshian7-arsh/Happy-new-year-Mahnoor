@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Happy New Year Jaan</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family: 'Nunito', sans-serif;
+  background: linear-gradient(180deg,#eef9ff 0%,#dff3ff 30%,#c6eaff 60%,#b0ddf6 100%);
+  color:#0b3c5d;
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+.aurora{position:fixed;inset:0;background:radial-gradient(circle at 20% 30%, rgba(180,230,255,0.35), transparent 60%),radial-gradient(circle at 80% 40%, rgba(170,200,255,0.3), transparent 60%),radial-gradient(circle at 50% 70%, rgba(200,240,255,0.25), transparent 65%);animation:auroraMove 18s ease-in-out infinite alternate;z-index:0;pointer-events:none;}
+@keyframes auroraMove{from{transform:translateY(-5%) scale(1);}to{transform:translateY(5%) scale(1.1);}}
+
+/* 🎄 Snow */
+.snow{position:fixed;inset:0;pointer-events:none;z-index:1;}
+.flake{position:absolute;background:white;border-radius:50%;opacity:0.85;animation:snowFall linear infinite;}
+@keyframes snowFall{from{transform:translateY(-10vh);}to{transform:translateY(110vh);}}
+
+/* Sparkles */
+.sparkles{position:fixed;inset:0;pointer-events:none;z-index:2;}
+.sparkle{position:absolute;width:3px;height:3px;background:rgba(255,255,255,0.9);border-radius:50%;box-shadow:0 0 10px rgba(200,240,255,1);animation:sparkleTwinkle 3s ease-in-out infinite;}
+@keyframes sparkleTwinkle{0%,100%{opacity:0.3;}50%{opacity:1;}}
+
+.page{position:relative;z-index:3;text-align:center;max-width:1100px;padding:40px 20px;margin:auto;}
+
+.greeting{background:rgba(255,255,255,0.75);backdrop-filter:blur(10px);padding:14px 30px;border-radius:18px;font-weight:700;font-size:clamp(18px,2.5vw,22px);box-shadow:0 0 25px rgba(180,220,255,0.9);margin-bottom:45px;display:inline-block;}
+
+.cards{display:flex;justify-content:center;gap:24px;flex-wrap:wrap;margin-bottom:35px;}
+.flip-card{width:220px;height:260px;perspective:1000px;cursor:pointer;}
+.flip-inner{width:100%;height:100%;transition:transform 0.8s;transform-style:preserve-3d;position:relative;}
+.flip-card.active .flip-inner{transform:rotateY(180deg);}
+.face{position:absolute;width:100%;height:100%;backface-visibility:hidden;border-radius:18px;background:rgba(255,255,255,0.96);box-shadow:0 15px 35px rgba(160,210,255,0.7);display:flex;align-items:center;justify-content:center;padding:16px;}
+.front{font-weight:700;}
+.back{transform:rotateY(180deg);}
+.back img{width:100%;border-radius:14px;}
+
+.footer-text{margin-top:20px;font-size:16px;}
+.proceed{margin-top:16px;padding:12px 36px;border-radius:30px;border:none;font-size:16px;cursor:pointer;background:linear-gradient(135deg,#e8f7ff,#bdeaff);box-shadow:0 0 20px rgba(160,210,255,0.8);}
+
+/* MUSIC FIX OVERLAY */
+#tapOverlay { position: fixed; inset: 0; background: rgba(255,255,255,0.8); z-index: 9999; display: flex; align-items: center; justify-content: center; }
+#tapOverlay span { border: 2px solid #0b3c5d; padding: 10px 20px; border-radius: 30px; font-weight: bold; cursor: pointer; }
+</style>
+</head>
+
+<body>
+
+<div id="tapOverlay"><span>Tap to Play Music & Start 💙</span></div>
+
+<div class="aurora"></div>
+<div class="snow" id="snow"></div>
+<div class="sparkles" id="sparkles"></div>
+
+<div class="page">
+  <div class="greeting">❄️ Happy New Year Jaan ❄️</div>
+
+  <div class="cards">
+    <div class="flip-card" onclick="openCard(this)">
+      <div class="flip-inner">
+        <div class="face front">Best Pic of the Year</div>
+        <div class="face back"><img src="best-pic.jpg"></div>
+      </div>
+    </div>
+
+    <div class="flip-card" onclick="openCard(this)">
+      <div class="flip-inner">
+        <div class="face front">Best Days of the Year</div>
+        <div class="face back">
+          <p>24–28 December ❤️<br><br>Truly heavenly, full of peace and our best moments together ❤</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="flip-card" onclick="openCard(this)">
+      <div class="flip-inner">
+        <div class="face front">Our Pic of the Year</div>
+        <div class="face back"><img src="our-pic.jpg"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-text">Have you seen all, my queen? Let’s go ahead 👑</div>
+  <button class="proceed" id="proceedBtn">Proceed ✨</button>
+</div>
+
+<audio id="memoriesMusic" src="audio/music2.mp3" loop></audio>
+
+<script>
+function openCard(card){
+  document.querySelectorAll('.flip-card').forEach(c=>{if(c!==card)c.classList.remove('active');});
+  card.classList.toggle('active');
+}
+
+// 🎄 Dense, Bulk Snowfall
+const snow = document.getElementById('snow');
+const snowCount = 180; // much denser
+for(let i=0;i<snowCount;i++){
+  const f = document.createElement('div');
+  f.className='flake';
+  f.style.left = Math.random()*100+'vw';
+  f.style.animationDuration = 12 + Math.random()*12 +'s'; // slow fall
+  const size = 6 + Math.random()*6; // bigger flakes
+  f.style.width = f.style.height = size + 'px';
+  f.style.opacity = 0.6 + Math.random()*0.4; 
+  f.style.top = Math.random()*-100 + 'vh';
+  snow.appendChild(f);
+}
+
+// Sparkles
+const sparkles=document.getElementById('sparkles');
+for(let i=0;i<40;i++){
+  const s=document.createElement('div');
+  s.className='sparkle';
+  s.style.left=Math.random()*100+'vw';
+  s.style.top=Math.random()*100+'vh';
+  sparkles.appendChild(s);
+}
+
+/* MUSIC FIX */
+const music = document.getElementById('memoriesMusic');
+const overlay = document.getElementById('tapOverlay');
+overlay.addEventListener('click', () => {
+    music.play();
+    overlay.style.display = 'none';
+}, { once: true });
+
+document.getElementById('proceedBtn').addEventListener('click', ()=>{
+  music.pause();
+  window.location.href="final.html";
+});
+</script>
+
+</body>
+</html>

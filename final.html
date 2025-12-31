@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Happy New Year My Queen ✨</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  font-family: 'Nunito', sans-serif;
+  background: linear-gradient(
+    180deg,
+    #040108 0%,
+    #090417 30%,
+    #120a2a 65%,
+    #1c103d 100%
+  );
+  overflow-x: hidden;
+  color: #f5ecf6;
+}
+
+/* 🔥 Fire Lantern */
+.lantern {
+  position: fixed;
+  bottom: -90px;
+  width: 24px;
+  height: 38px;
+  background: radial-gradient(circle, #ffd27d 0%, #ff9a3d 45%, #ff6a00 75%);
+  border-radius: 6px 6px 8px 8px;
+  box-shadow:
+    0 0 12px rgba(255, 160, 60, 0.9),
+    0 0 30px rgba(255, 120, 40, 0.7);
+  animation:
+    floatUp linear infinite,
+    flicker 2s ease-in-out infinite;
+  z-index: 2;
+}
+
+.lantern::before {
+  content: '';
+  position: absolute;
+  bottom: 6px;
+  left: 50%;
+  width: 9px;
+  height: 12px;
+  background: radial-gradient(circle, #fff8d6 0%, #ffb347 60%, #ff6a00 100%);
+  border-radius: 50%;
+  transform: translateX(-50%);
+}
+
+@keyframes floatUp {
+  from { transform: translateY(0); opacity: 0; }
+  10% { opacity: 1; }
+  to { transform: translateY(-120vh); opacity: 0; }
+}
+
+@keyframes flicker {
+  0%,100% { filter: brightness(1); }
+  50% { filter: brightness(1.15); }
+}
+
+/* 🔥 Embers */
+.ember {
+  position: fixed;
+  bottom: -10px;
+  width: 3px;
+  height: 3px;
+  background: #ffb347;
+  border-radius: 50%;
+  box-shadow: 0 0 8px rgba(255, 160, 60, 0.9);
+  animation: emberUp linear infinite;
+  z-index: 1;
+}
+
+@keyframes emberUp {
+  from { transform: translateY(0); opacity: 0; }
+  10% { opacity: 1; }
+  to { transform: translateY(-110vh); opacity: 0; }
+}
+
+/* 🌸 Container */
+.container {
+  position: relative;
+  z-index: 3;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  text-align: center;
+}
+
+/* 📜 Card */
+.card {
+  background: rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(12px);
+  border-radius: 22px;
+  padding: 22px 18px;
+  max-width: 95%;
+  animation: appear 1.2s ease, levitate 3.8s ease-in-out infinite;
+}
+
+@keyframes appear {
+  from { opacity: 0; transform: translateY(30px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes levitate {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+.card h1 {
+  font-family: 'Pacifico', cursive;
+  font-size: clamp(24px, 6vw, 34px);
+  margin-bottom: 14px;
+  color: #ffd6f1;
+}
+
+.card p {
+  font-size: clamp(14px, 4vw, 16px);
+  line-height: 1.7;
+  margin-bottom: 12px;
+}
+
+/* Tap overlay */
+#tapOverlay {
+  position: fixed;
+  inset: 0;
+  z-index:9999;
+  background: rgba(0,0,0,0.4);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor: pointer;
+}
+
+#tapOverlay span {
+  color:white;
+  font-size:18px;
+  border: 1px solid white;
+  padding: 10px 20px;
+  border-radius: 30px;
+}
+
+/* 🌫 Blur overlay */
+#blurOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  backdrop-filter: blur(5px);
+  display: none;
+  z-index: 9997;
+}
+
+/* 💖 Love Message */
+#loveMessage {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9998;
+  pointer-events: none;
+}
+
+.loveText {
+  font-family: 'Pacifico', cursive;
+  font-size: clamp(34px, 9vw, 56px);
+  color: #c86b6b; /* 🌹 MORE VISIBLE AESTHETIC ROSE */
+  text-shadow:
+    0 0 18px rgba(200, 107, 107, 0.95),
+    0 0 45px rgba(200, 107, 107, 0.75);
+  animation: popIn 1.2s ease forwards;
+}
+
+@keyframes popIn {
+  from { opacity: 0; transform: scale(0.5); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* 💕 Floating Hearts */
+.heart {
+  position: fixed;
+  bottom: -20px;
+  font-size: 18px;
+  color: #ff6fae;
+  animation: heartFloat linear forwards;
+  z-index: 9997;
+}
+
+@keyframes heartFloat {
+  from { transform: translateY(0); opacity: 1; }
+  to { transform: translateY(-120vh); opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<audio id="bgMusic3" src="audio/music3.mp3" preload="auto"></audio>
+
+<div id="tapOverlay">
+  <span>Tap anywhere to start ✨</span>
+</div>
+
+<div class="container">
+  <div class="card">
+    <h1>Happy New Year, My Queen ✨</h1>
+
+    <p>
+      As this new year begins, I just want you to know how grateful I am for you 🤍<br>
+      Your smile makes my days brighter, your voice feels like home, and your presence turns ordinary moments into something beautiful ❤️
+    </p>
+
+    <p>
+      This year, I don’t wish for anything big…<br>
+      I just wish for more laughs with you, more late-night talks, more memories we’ll look back on and smile at 🤧
+    </p>
+
+    <p>
+      I wish to stand by you in every season, to support your dreams, and to love you a little more every single day ❣
+    </p>
+
+    <p>
+      Thank you for being my peace, my happiness, and my favorite part of every day.
+      Here’s to a new year filled with love, warmth, and us… always us ❤️
+    </p>
+  </div>
+</div>
+
+<div id="blurOverlay"></div>
+
+<div id="loveMessage">
+  <div class="loveText">I Love You So Much Mahnoor ❤️</div>
+</div>
+
+<script>
+for (let i = 0; i < 10; i++) {
+  const l = document.createElement('div');
+  l.className = 'lantern';
+  l.style.left = Math.random() * 100 + 'vw';
+  l.style.animationDuration = 14 + Math.random() * 10 + 's';
+  l.style.animationDelay = Math.random() * 6 + 's';
+  document.body.appendChild(l);
+}
+
+for (let i = 0; i < 18; i++) {
+  const e = document.createElement('div');
+  e.className = 'ember';
+  e.style.left = Math.random() * 100 + 'vw';
+  e.style.animationDuration = 8 + Math.random() * 8 + 's';
+  e.style.animationDelay = Math.random() * 5 + 's';
+  document.body.appendChild(e);
+}
+
+const overlay = document.getElementById('tapOverlay');
+const music = document.getElementById('bgMusic3');
+const loveMsg = document.getElementById('loveMessage');
+const blur = document.getElementById('blurOverlay');
+
+overlay.addEventListener('click', () => {
+  music.loop = false;
+  music.play();
+  overlay.style.display = 'none';
+}, { once: true });
+
+music.addEventListener('ended', () => {
+  blur.style.display = 'block';
+  loveMsg.style.display = 'flex';
+
+  const heartInterval = setInterval(() => {
+    const h = document.createElement('div');
+    h.className = 'heart';
+    h.innerHTML = '❤️';
+    h.style.left = Math.random() * 100 + 'vw';
+    h.style.animationDuration = (5 + Math.random() * 3) + 's';
+    document.body.appendChild(h);
+    setTimeout(() => h.remove(), 8000);
+  }, 300);
+
+  setTimeout(() => {
+    clearInterval(heartInterval);
+    loveMsg.style.display = 'none';
+    blur.style.display = 'none';
+  }, 7000);
+});
+</script>
+
+</body>
+</html>
